@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace>Carpool.Infrastructure</RootNamespace>
+        <AssemblyName>Carpool.Infrastructure</AssemblyName>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CloudinaryDotNet" Version="1.15.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.0" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0" />
+        <PackageReference Include="SendGrid" Version="9.25.0" />
+        
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Application\Application.csproj" />
+    </ItemGroup>
+
+</Project>

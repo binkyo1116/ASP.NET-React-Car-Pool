@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  webui:
+    image: ${DOCKER_REGISTRY-}webui
+    build:
+      context: .
+      dockerfile: src/WebUI/Dockerfile
+    environment:
+      - 'UseInMemoryDatabase=false'
+      - 'UseProduction=false'
+      - 'ConnectionStrings__DefaultConnection=Server=db; Port=5432; User Id=admin; Password=secret; Database=Carpool'
+      - 'JWTTokenKey=DYuVhNgKjY447ufqEKYbxF8'
+      - 'ASPNETCORE_Kestrel__Certificates__Default__Password=Your_password123'
+      - 'ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx'
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    ports:
+      - '5000:5000'
+      - '5001:5001'
+    depends_on:
+      - db
+    restart: on-failure
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: admin
