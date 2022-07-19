@@ -17,6 +17,17 @@ const initialState: AccountState = {
     loading: true,
 };
 
+export const registerUser = createAsyncThunk<UserDto, RegisterCommand>(
+    'account/registerUser',
+    async (registerDto, thunkAPI: any) => {
+        try {
+            return await agent.Account.register(registerDto);
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue({ error: error.data });
+        }
+    },
+);
+
 export const signInUser = createAsyncThunk<UserDto, LoginQuery>(
     'account/signInUser',
     async (loginDto, thunkAPI: any) => {
@@ -24,16 +35,6 @@ export const signInUser = createAsyncThunk<UserDto, LoginQuery>(
             const user = await agent.Account.login(loginDto);
             localStorage.setItem('user', JSON.stringify(user));
             return user;
-        } catch (error: any) {
-            return thunkAPI.rejectWithValue({ error: error.data });
-        }
-    },
-);
-export const registerUser = createAsyncThunk<UserDto, RegisterCommand>(
-    'account/registerUser',
-    async (registerDto, thunkAPI: any) => {
-        try {
-            return await agent.Account.register(registerDto);
         } catch (error: any) {
             return thunkAPI.rejectWithValue({ error: error.data });
         }
