@@ -18,16 +18,6 @@ public class IdentityService : IIdentityService
         return user.UserName;
     }
 
-    public async Task<ApplicationUser> GetUserLoggedAsync(string email, string password)
-    {
-        var user = await _userManager.Users.SingleOrDefaultAsync(x => x.Email == email);
-
-        if (user is null) return new ApplicationUser();
-
-        var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
-        return result.Succeeded ? user : new ApplicationUser();
-    }
-
     public async Task<(Result Result, string UserId)> CreateUserAsync(ApplicationUser user, string password)
     {
         var result = await _userManager.CreateAsync(user, password);
@@ -45,6 +35,16 @@ public class IdentityService : IIdentityService
         }
 
         return Result.Success();
+    }
+
+    public async Task<ApplicationUser> GetUserLoggedAsync(string email, string password)
+    {
+        var user = await _userManager.Users.SingleOrDefaultAsync(x => x.Email == email);
+
+        if (user is null) return new ApplicationUser();
+
+        var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
+        return result.Succeeded ? user : new ApplicationUser();
     }
 
     public async Task<Result> DeleteUserAsync(ApplicationUser user)
