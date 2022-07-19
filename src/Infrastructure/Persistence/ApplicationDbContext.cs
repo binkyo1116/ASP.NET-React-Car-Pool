@@ -18,13 +18,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<Event> Events => Set<Event>();
 
-
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-        base.OnModelCreating(builder);
-    }
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
         foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
@@ -47,4 +40,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
         return result;
     }
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        base.OnModelCreating(builder);
+    }
+    
 }
