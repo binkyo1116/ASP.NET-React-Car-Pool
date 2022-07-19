@@ -2,14 +2,6 @@ namespace Carpool.Infrastructure.Photos;
 public class PhotoAccessor : IPhotoAccessor
 {
     private readonly Cloudinary _cloudinary;
-    public PhotoAccessor(IOptions<CloudinarySettings> config)
-    {
-        var account = new Account(
-            config.Value.CloudName,
-            config.Value.ApiKey,
-            config.Value.ApiSecret);
-        _cloudinary = new Cloudinary(account);
-    }
 
     public async Task<PhotoUploadResult> AddPhoto(IFormFile file)
     {
@@ -35,4 +27,14 @@ public class PhotoAccessor : IPhotoAccessor
         }
         return null!;
     }
+    public PhotoAccessor(IOptions<CloudinarySettings> config)
+    {
+        var account = new Account(
+            config.Value.CloudName,
+            config.Value.ApiKey,
+            config.Value.ApiSecret);
+        _cloudinary = new Cloudinary(account);
+    }
+
+    
 }
