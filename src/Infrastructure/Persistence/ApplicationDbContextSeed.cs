@@ -9,34 +9,6 @@ public static class ApplicationDbContextSeed
         await SeedSampleEventAsync(context);
     }
 
-    public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager)
-    {
-        if (!userManager.Users.Any())
-        {
-            var users = new List<ApplicationUser>
-                {
-                    new ApplicationUser
-                    {
-                        UserName = "bob",
-                        Email = "bob@test.com",
-                        EmailConfirmed = true,
-                    },
-                    new ApplicationUser
-                    {
-                        UserName = "tom",
-                        Email = "tom@test.com",
-                        EmailConfirmed = true,
-                    },
-                };
-
-            foreach (var user in users)
-            {
-                await userManager.CreateAsync(user, "Pa$$word13");
-            }
-        }
-    }
-
-
     public static async Task SeedSampleEventAsync(ApplicationDbContext context)
     {
         //        var Photos =
@@ -80,4 +52,34 @@ public static class ApplicationDbContextSeed
             await context.SaveChangesAsync();
         }
     }
+
+    public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager)
+    {
+        if (!userManager.Users.Any())
+        {
+            var users = new List<ApplicationUser>
+                {
+                    new ApplicationUser
+                    {
+                        UserName = "bob",
+                        Email = "bob@test.com",
+                        EmailConfirmed = true,
+                    },
+                    new ApplicationUser
+                    {
+                        UserName = "tom",
+                        Email = "tom@test.com",
+                        EmailConfirmed = true,
+                    },
+                };
+
+            foreach (var user in users)
+            {
+                await userManager.CreateAsync(user, "Pa$$word13");
+            }
+        }
+    }
+
+
+    
 }
