@@ -9,11 +9,6 @@ public class ForgotPasswordQueryHandler : IRequestHandler<ForgotPasswordQuery, s
 {
     private readonly IIdentityService _identityService;
 
-    public ForgotPasswordQueryHandler(IIdentityService identityService)
-    {
-        _identityService = identityService;
-    }
-
     public async Task<string> Handle(ForgotPasswordQuery request, CancellationToken cancellationToken)
     {
         var user = await _identityService.GetUserByEmailAsync(request.Email);
@@ -24,4 +19,10 @@ public class ForgotPasswordQueryHandler : IRequestHandler<ForgotPasswordQuery, s
         }
         return String.Empty;
     }
+    public ForgotPasswordQueryHandler(IIdentityService identityService)
+    {
+        _identityService = identityService;
+    }
+
+    
 }
