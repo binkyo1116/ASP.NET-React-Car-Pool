@@ -10,11 +10,6 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, string>
 {
     private readonly IIdentityService _identityService;
 
-    public RegisterCommandHandler(IIdentityService identityService)
-    {
-        _identityService = identityService;
-    }
-
     public async Task<string> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         var user = new ApplicationUser
@@ -28,5 +23,10 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, string>
         if (!result.Result.Succeeded) return String.Empty;
 
         return await _identityService.GetEmailConfirmationTokenAsync(user);
+    }
+
+    public RegisterCommandHandler(IIdentityService identityService)
+    {
+        _identityService = identityService;
     }
 }
