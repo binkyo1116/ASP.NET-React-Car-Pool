@@ -11,10 +11,6 @@ public class VerifyEmailQueryHandler : IRequestHandler<VerifyEmailQuery, bool>
 
     private readonly IIdentityService _identityService;
 
-    public VerifyEmailQueryHandler(IIdentityService identityService)
-    {
-        _identityService = identityService;
-    }
 
     public async Task<bool> Handle(VerifyEmailQuery request, CancellationToken cancellationToken)
     {
@@ -27,4 +23,10 @@ public class VerifyEmailQueryHandler : IRequestHandler<VerifyEmailQuery, bool>
 
         return result.Succeeded;
     }
+    public VerifyEmailQueryHandler(IIdentityService identityService)
+    {
+        _identityService = identityService;
+    }
+
+    
 }
