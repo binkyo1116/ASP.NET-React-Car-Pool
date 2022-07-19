@@ -10,21 +10,6 @@ interface EventState {
     loading: boolean;
 }
 
-const initialState: EventState = {
-    events: null,
-    loading: true,
-};
-
-export const getEvents = createAsyncThunk<EventDto[]>('event/getEvents', async (_, thunkAPI: any) => {
-    thunkAPI.dispatch(setLoading(true));
-    try {
-        const events = await agent.Event.get();
-        return events;
-    } catch (error: any) {
-        return thunkAPI.rejectWithValue({ error: error.data });
-    }
-});
-
 export const eventSlice = createSlice({
     name: 'event',
     initialState,
@@ -43,5 +28,22 @@ export const eventSlice = createSlice({
         });
     },
 });
+
+const initialState: EventState = {
+    events: null,
+    loading: true,
+};
+
+export const getEvents = createAsyncThunk<EventDto[]>('event/getEvents', async (_, thunkAPI: any) => {
+    thunkAPI.dispatch(setLoading(true));
+    try {
+        const events = await agent.Event.get();
+        return events;
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue({ error: error.data });
+    }
+});
+
+
 
 export const { setLoading } = eventSlice.actions;
