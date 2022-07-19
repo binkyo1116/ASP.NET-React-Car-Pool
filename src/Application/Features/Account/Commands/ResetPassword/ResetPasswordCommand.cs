@@ -12,11 +12,6 @@ public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand,
 {
     private readonly IIdentityService _identityService;
 
-    public ResetPasswordCommandHandler(IIdentityService identityService)
-    {
-        _identityService = identityService;
-    }
-
     public async Task<bool> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
     {
         var user = await _identityService.GetUserByEmailAsync(request.Email);
@@ -28,4 +23,10 @@ public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand,
         }
         return false;
     }
+
+    public ResetPasswordCommandHandler(IIdentityService identityService)
+    {
+        _identityService = identityService;
+    }
+
 }
