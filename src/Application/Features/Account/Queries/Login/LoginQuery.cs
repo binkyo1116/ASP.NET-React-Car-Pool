@@ -10,13 +10,15 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, ApplicationUser>
 {
     private readonly IIdentityService _identityService;
 
+    public async Task<ApplicationUser> Handle(LoginQuery request, CancellationToken cancellationToken)
+    {
+        return await _identityService.GetUserLoggedAsync(request.Email, request.Password);
+    }
+
     public LoginQueryHandler(IIdentityService identityService)
     {
         _identityService = identityService;
 
     }
-    public async Task<ApplicationUser> Handle(LoginQuery request, CancellationToken cancellationToken)
-    {
-        return await _identityService.GetUserLoggedAsync(request.Email, request.Password);
-    }
+    
 }
