@@ -28,18 +28,7 @@ export default function ConfirmEmail(): React.ReactElement {
 
     const [status, setStatus] = useState(Status.Verifying);
 
-    function handleConfirmEmailResend() {
-        setLoading(true);
-        agent.Account.resendEmailConfirmation(email)
-            .then(() => {
-                toast.success('Verification email resent - Please check your email');
-                setDisabled(true);
-                emailTimer = setTimeout(() => {
-                    setDisabled(false);
-                }, 3000);
-            })
-            .finally(() => setLoading(false));
-    }
+    
 
     useEffect(() => {
         agent.Account.verifyEmail(token, email)
@@ -53,6 +42,19 @@ export default function ConfirmEmail(): React.ReactElement {
             if (emailTimer) clearTimeout(emailTimer);
         };
     }, [Status.Failed, Status.Success, email, emailTimer, token]);
+
+    function handleConfirmEmailResend() {
+        setLoading(true);
+        agent.Account.resendEmailConfirmation(email)
+            .then(() => {
+                toast.success('Verification email resent - Please check your email');
+                setDisabled(true);
+                emailTimer = setTimeout(() => {
+                    setDisabled(false);
+                }, 3000);
+            })
+            .finally(() => setLoading(false));
+    }
 
     function getbody(): React.ReactElement {
         switch (status) {
